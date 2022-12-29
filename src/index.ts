@@ -27,6 +27,8 @@ app.post('/register', UserController.create);
 const port = process.env.PORT || 3000;
 const mongoUrl = "mongodb+srv://user123:123123123@cluster0.xkikzml.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(mongoUrl, { bufferCommands: false });
+// mongoose.set('strictQuery', false);
+// mongoose.set('strictQuery', true);
 
 // Connect to the MongoDB instance
 mongodb.MongoClient.connect(mongoUrl, (error, client) => {

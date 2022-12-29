@@ -3,15 +3,21 @@ const User = require('../models/user');
 
 
 class UserService {
+
     async createUser(email,password) {
-    
-     console.log("you inside the service"); 
-     const user = await UserRepository.create({email,password});
-    
-     console.log(user)
-     return user;
-   
+     const Email=email;
+     const check = await UserRepository.findUser(Email);
+     console.log("REpo returned: "+check)
+     if(check != "Success"){
+      return "User already exists"
+     }else{
+      const user = await UserRepository.create({email,password});
+      console.log("create method called in service")
+      return user;
+     }
+     
     }
+
   }
   
   module.exports = new UserService();
