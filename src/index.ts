@@ -3,13 +3,18 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import * as mongodb from 'mongodb';
 import mongoose from 'mongoose';
+// import { UserController } from './controllers/userTS';
+
 
 // import bodyParser from 'body-parser';
 const bodyParser = require('body-parser')
 
+const UserController = require('./controllers/userTS').UserController;
+const DataController = require('./controllers/dataTS').DataController;
 
-const UserController = require('./controllers/user');
-const DataController = require('./controllers/data');
+// const UserController = require('./controllers/userTS');
+
+// const DataController = require('./controllers/data');
 
 // Load environment variables from the .env file
 dotenv.config();
@@ -18,24 +23,36 @@ dotenv.config();
 const app = express();
 app.use(bodyParser.json())
 
+const userController = new UserController();
+const dataController = new DataController();
+
 //user control routes
-app.post('/register', UserController.Register); //register route 
-app.post('/login',UserController.Login); //login route
+app.post('/register', (req, res) => {
+  userController.Register(req, res);
+}); //register route 
+app.post('/login', (req, res) => {
+  userController.Login(req, res);
+}); //login route
 
 //data control routes
-app.post('/create',DataController.createData); //create route
-app.put('/edit',DataController.editData); //edit route
-app.get('/view', DataController.ViewData); //view all
-app.post('/viewone', DataController.ViewOneData); //view special
-app.delete('/delete/:id', DataController.Delete); //delete data
-
-// app.post('/login', (req,res) => {
-//     const {email,password} = req.body;
-//     console.log(email,password)
-// })
+app.post('/create', (req, res) => {
+  dataController.createData(req, res);
+}); 
+app.put('/edit', (req, res) => {
+  dataController.editData(req, res);
+}); 
+app.get('/view', (req, res) => {
+  dataController.ViewData(req, res);
+}); 
+app.post('/viewone', (req, res) => {
+  dataController.ViewOneData(req, res);
+}); 
+app.delete('/delete/:id', (req, res) => {
+  dataController.Delete(req, res);
+}); 
 
 //beacause of an issue when reading process.env, used mongo url directly in index.ts
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const mongoUrl = "mongodb+srv://user123:123123123@cluster0.xkikzml.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(mongoUrl, { bufferCommands: false });
 mongoose.set('strictQuery', false);
