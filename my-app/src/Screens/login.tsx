@@ -39,22 +39,36 @@ const Login: React.FC<Props> = (props) => {
     }
     
     return (
+        <div style={{border:"2px solid white", borderRadius:"50px", width:"36%", height:"20rem",boxShadow:"black",backgroundColor:"#212326"}}>
+            <h3>Login</h3>
         <form onSubmit={handleSubmit}>
-            <label>
-                Username:
-                <input type="email" required value={email} onChange={e => setEmail(e.target.value)} />
-            </label>
-            <br />
-            <label>
-                Password:
-                <input type="password" required value={password} onChange={e => setPassword(e.target.value)} />
-            </label>
-            <br />
-            {error && <p>{error}</p>}
-            <button type="submit">Login</button>
+            <table style={{margin:"0 auto"}}>
+                <tr>
+                    <td>
+                        <label style={{fontSize:"20px"}}>Username</label>
+                    </td>
+                    <td>:</td>
+                    <td>
+                        <input type="email" required value={email} onChange={e => setEmail(e.target.value)} style={{height:"20px",borderRadius:"5px"}}/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style={{paddingTop:"20px"}}>
+                        <label style={{fontSize:"20px"}}>Password</label>
+                    </td>
+                    <td style={{paddingTop:"20px"}}>:</td>
+                    <td style={{paddingTop:"20px"}}>
+                        <input type="password" required value={password} onChange={e => setPassword(e.target.value)} style={{height:"20px",borderRadius:"5px"}}/>
+                    </td>
+                </tr>
+            </table>
 
-<p>{succesMsg}</p>
+        <br/>            
+            <button type="submit" style={{backgroundColor:"#0b59d6", color:"white", width:"90px", height:"35px",borderRadius:"10px", fontSize:"16px", marginTop:"-8rem",cursor:'pointer'}}>Login</button>
+
+<p style={{fontSize:"10px", color:"green"}}>{succesMsg}{error && <p style={{fontSize:"10px", color:"red"}}>{error}</p>}</p>
         </form>
+        </div>
     );
     
 };
