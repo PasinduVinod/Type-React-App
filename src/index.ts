@@ -3,8 +3,7 @@ import * as dotenv from 'dotenv';
 import express from 'express';
 import * as mongodb from 'mongodb';
 import mongoose from 'mongoose';
-// import { UserController } from './controllers/userTS';
-
+// const env = require('./types/environment');
 
 // import bodyParser from 'body-parser';
 const bodyParser = require('body-parser')
@@ -18,6 +17,8 @@ const DataController = require('./controllers/dataTS').DataController;
 
 // Load environment variables from the .env file
 dotenv.config();
+
+// console.log(env.PORT)
 
 // Set up the express app
 const app = express();
@@ -52,7 +53,7 @@ app.delete('/delete/:id', (req, res) => {
 }); 
 
 //beacause of an issue when reading process.env, used mongo url directly in index.ts
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5001;
 const mongoUrl = "mongodb+srv://user123:123123123@cluster0.xkikzml.mongodb.net/?retryWrites=true&w=majority"
 mongoose.connect(mongoUrl, { bufferCommands: false });
 mongoose.set('strictQuery', false);
