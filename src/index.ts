@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 const UserController = require('./controllers/userTS').UserController;
 const DataController = require('./controllers/dataTS').DataController;
 
+const cors = require('cors');
 // const UserController = require('./controllers/userTS');
 
 // const DataController = require('./controllers/data');
@@ -23,6 +24,9 @@ dotenv.config();
 // Set up the express app
 const app = express();
 app.use(bodyParser.json())
+
+app.use(cors());
+
 
 const userController = new UserController();
 const dataController = new DataController();

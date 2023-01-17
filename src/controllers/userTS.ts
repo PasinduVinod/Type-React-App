@@ -11,6 +11,7 @@ export class UserController {
 
     async Register(req: Request, res: Response) {
         const {email, password} = req.body;
+        // console.log("triggered")
         // check input validity
         console.log((email && password))
         if (!(email && password)) {
@@ -25,6 +26,7 @@ export class UserController {
 
     async Login(req: Request, res: Response) {
         const {email, password} = req.body;
+        console.log("email: "+email + "Password" + password);
         // check input validity
         if (!(email && password)) {
             res.status(400).send("Both email and password required");
@@ -33,8 +35,9 @@ export class UserController {
             const user = await userService.LoginUser(email, password);
             if(user !== "failed"){
                 res.status(200).json(user);
+                console.log("success")
             }else{
-                res.status(400).send("Invalid Credentials");
+                res.status(401).json("Invalid Credentials");
             }
         }
     }
